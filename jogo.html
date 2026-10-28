@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labirinto do Autoritarismo: Os Mecanismos do Nazifascismo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0c0a09', // Preto quente / Café bem escuro
+                        cardbg: '#1c1917', // Grafite / Marrom escuro
+                        amberborder: '#44403c',
+                        pastelYellow: '#fef08a', // Amarelo Pastel suave
+                        pastelAccent: '#fde047',
+                        sepiaText: '#e7e5e4',
+                        warmBrown: '#27201c',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c0a09;
+            color: #e7e5e4;
+        }
+        h1, h2, h3, .font-editorial {
+            font-family: 'Playfair Display', serif;
+        }
+        .glass-panel {
+            background: rgba(28, 25, 23, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(120, 113, 108, 0.25);
+        }
+        .pulse-glow {
+            box-shadow: 0 0 20px rgba(254, 240, 138, 0.15);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-900 selection:text-amber-100">
+
+    <!-- Header / Navegação -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-stone-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('inicio')">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-700 via-amber-900 to-stone-900 flex items-center justify-center font-editorial font-bold text-xl text-amber-200 shadow-lg border border-amber-600/40">
+                    L
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-amber-100 leading-none">Labirinto do Autoritarismo</h1>
+                    <span class="text-xs text-amber-300/80 font-medium">Análise Histórica & Crítica</span>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex space-x-1 lg:space-x-2">
+                <button onclick="switchTab('inicio')" id="nav-inicio" class="px-4 py-2 rounded-lg text-sm font-medium transition-all bg-amber-950/80 border border-amber-700/60 text-amber-200 flex items-center gap-2 shadow">
+                    <i class="fa-solid fa-compass text-amber-300"></i> Início & Eixos
+                </button>
+                <button onclick="switchTab('jogo')" id="nav-jogo" class="px-4 py-2 rounded-lg text-sm font-medium transition-all text-stone-300 hover:text-amber-200 hover:bg-stone-800/80 flex items-center gap-2">
+                    <i class="fa-solid fa-gamepad"></i> Jogo de Dilemas
+                </button>
+                <button onclick="switchTab('midia')" id="nav-midia" class="px-4 py-2 rounded-lg text-sm font-medium transition-all text-stone-300 hover:text-amber-200 hover:bg-stone-800/80 flex items-center gap-2">
+                    <i class="fa-solid fa-compact-disc"></i> Vídeo & Música
+                </button>
+                <button onclick="switchTab('equipe')" id="nav-equipe" class="px-4 py-2 rounded-lg text-sm font-medium transition-all text-stone-300 hover:text-amber-200 hover:bg-stone-800/80 flex items-center gap-2">
+                    <i class="fa-solid fa-users"></i> Quem Somos
+                </button>
+            </nav>
+
+            <div class="md:hidden">
+                <button onclick="toggleMobileMenu()" class="p-2 text-stone-400 hover:text-amber-200 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-1 bg-stone-900 border-b border-stone-800">
+            <button onclick="switchTab('inicio'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-amber-200 bg-amber-950/80 border border-amber-800/60">
+                <i class="fa-solid fa-compass text-amber-300 mr-2"></i> Início & Eixos
+            </button>
+            <button onclick="switchTab('jogo'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-stone-800">
+                <i class="fa-solid fa-gamepad text-amber-400 mr-2"></i> Jogo de Dilemas
+            </button>
+            <button onclick="switchTab('midia'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-stone-800">
+                <i class="fa-solid fa-compact-disc text-amber-400 mr-2"></i> Vídeo & Música
+            </button>
+            <button onclick="switchTab('equipe'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-stone-800">
+                <i class="fa-solid fa-users text-amber-400 mr-2"></i> Quem Somos
+            </button>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+
+        <!-- ABA 1: INÍCIO & EIXOS -->
+        <section id="tab-inicio" class="tab-content space-y-12 animate-fadeIn">
+            <!-- Hero Banner -->
+            <div class="relative rounded-3xl overflow-hidden glass-panel p-8 sm:p-12 border border-amber-900/40">
+                <div class="absolute inset-0 bg-gradient-to-r from-stone-950 via-stone-900/80 to-stone-950/60 pointer-events-none"></div>
+                <div class="max-w-3xl relative z-10 space-y-6">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/30">
+                        Projeto Acadêmico • 3º Bimestre
+                    </span>
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-stone-100 leading-tight">
+                        Compreendendo os Mecanismos do <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-300">Nazifascismo</span>
+                    </h1>
+                    <p class="text-lg text-stone-300 leading-relaxed font-light">
+                        Este portal interativo investiga as engrenagens políticas, burocráticas e psicológicas que possibilitaram a ascensão e a brutalidade dos regimes autoritários no século XX. Através de rigor histórico e análise conceitual, desvendamos como o consentimento é fabricado.
+                    </p>
+                    <div class="pt-4 flex flex-wrap gap-4">
+                        <button onclick="switchTab('jogo')" class="px-6 py-3 rounded-xl bg-amber-200 hover:bg-amber-300 text-stone-950 font-semibold transition-all shadow-lg pulse-glow flex items-center space-x-2">
+                            <span>Jogar Simulação Interativa</span>
+                            <i class="fa-solid fa-arrow-right ml-2 text-stone-900"></i>
+                        </button>
+                        <button onclick="switchTab('midia')" class="px-6 py-3 rounded-xl bg-stone-900 hover:bg-stone-800 text-amber-200 font-semibold transition-all border border-amber-900/60 flex items-center gap-2">
+                            <i class="fa-solid fa-compact-disc text-amber-300"></i> Ver Vídeo & Música
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Eixos Temáticos Detalhados -->
+            <div class="space-y-6">
+                <div class="border-b border-stone-800 pb-4 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-amber-100 font-editorial">Os 5 Eixos Temáticos Fundamentais</h2>
+                        <p class="text-stone-400 text-sm mt-1">Base teórica discutida em sala de aula para a compreensão crítica do período.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Eixo 1 -->
+                    <div class="glass-panel rounded-2xl border border-stone-800 hover:border-amber-600/50 transition-all flex flex-col justify-between overflow-hidden group">
+                        <div class="h-44 w-full relative overflow-hidden bg-stone-950">
+                            <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80" alt="Banalidade do Mal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60 sepia">
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/40 to-transparent"></div>
+                            <span class="absolute top-3 left-3 w-10 h-10 rounded-xl bg-amber-950/90 text-amber-200 font-bold flex items-center justify-center text-sm shadow-lg border border-amber-700/50">01</span>
+                        </div>
+                        <div class="p-6 pt-2 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold text-amber-100 mb-2">Banalidade do Mal</h3>
+                                <p class="text-stone-300 text-sm leading-relaxed">
+                                    A submissão à autoridade e a divisão burocrática das responsabilidades permitem que indivíduos comuns executem práticas violentas sem questionamento ético (Hannah Arendt e o julgamento de Eichmann).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Eixo 2 -->
+                    <div class="glass-panel rounded-2xl border border-stone-800 hover:border-amber-600/50 transition-all flex flex-col justify-between overflow-hidden group">
+                        <div class="h-44 w-full relative overflow-hidden bg-stone-950">
+                            <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=600&q=80" alt="Manipulação dos Afetos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60 sepia">
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/40 to-transparent"></div>
+                            <span class="absolute top-3 left-3 w-10 h-10 rounded-xl bg-amber-950/90 text-amber-200 font-bold flex items-center justify-center text-sm shadow-lg border border-amber-700/50">02</span>
+                        </div>
+                        <div class="p-6 pt-2 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold text-amber-100 mb-2">Manipulação dos Afetos</h3>
+                                <p class="text-stone-300 text-sm leading-relaxed">
+                                    O medo, o ressentimento pós-crise, o orgulho nacional e o pertencimento gregário mobilizados pela propaganda para produzir adesão política cega a projetos autoritários.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Eixo 3 -->
+                    <div class="glass-panel rounded-2xl border border-stone-800 hover:border-amber-600/50 transition-all flex flex-col justify-between overflow-hidden group">
+                        <div class="h-44 w-full relative overflow-hidden bg-stone-950">
+                            <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80" alt="Construção de Inimigos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60 sepia">
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/40 to-transparent"></div>
+                            <span class="absolute top-3 left-3 w-10 h-10 rounded-xl bg-amber-950/90 text-amber-200 font-bold flex items-center justify-center text-sm shadow-lg border border-amber-700/50">03</span>
+                        </div>
+                        <div class="p-6 pt-2 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold text-amber-100 mb-2">Construção de Inimigos</h3>
+                                <p class="text-stone-300 text-sm leading-relaxed">
+                                    A identificação de minorias e grupos específicos como ameaças existenciais à comunidade, justificando legalmente a discriminação, perseguição e violência de Estado.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Eixo 4 -->
+                    <div class="glass-panel rounded-2xl border border-stone-800 hover:border-amber-600/50 transition-all flex flex-col justify-between overflow-hidden group">
+                        <div class="h-44 w-full relative overflow-hidden bg-stone-950">
+                            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80" alt="Eugenia e Hierarquias" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60 sepia">
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/40 to-transparent"></div>
+                            <span class="absolute top-3 left-3 w-10 h-10 rounded-xl bg-amber-950/90 text-amber-200 font-bold flex items-center justify-center text-sm shadow-lg border border-amber-700/50">04</span>
+                        </div>
+                        <div class="p-6 pt-2 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold text-amber-100 mb-2">Eugenia & Hierarquias</h3>
+                                <p class="text-stone-300 text-sm leading-relaxed">
+                                    Concepções pseudocientíficas de hierarquia biológica e racial mobilizadas para fundamentar políticas de exclusão, esterilização forçada e extermínio sistemático.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Eixo 5 -->
+                    <div class="glass-panel rounded-2xl border border-stone-800 hover:border-amber-600/50 transition-all flex flex-col justify-between overflow-hidden group md:col-span-2 lg:col-span-1">
+                        <div class="h-44 w-full relative overflow-hidden bg-stone-950">
+                            <img src="https://images.unsplash.com/photo-1575320181282-9afab399332c?auto=format&fit=crop&w=600&q=80" alt="Idealização do Líder" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60 sepia">
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/40 to-transparent"></div>
+                            <span class="absolute top-3 left-3 w-10 h-10 rounded-xl bg-amber-950/90 text-amber-200 font-bold flex items-center justify-center text-sm shadow-lg border border-amber-700/50">05</span>
+                        </div>
+                        <div class="p-6 pt-2 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold text-amber-100 mb-2">Idealização do Líder</h3>
+                                <p class="text-stone-300 text-sm leading-relaxed">
+                                    A atribuição de qualidades extraordinárias e messiânicas ao líder supremo, favorecendo a identificação coletiva, o sentimento de pertença e a sustentação do fascismo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 2: JOGO DE DILEMAS HISTÓRICOS -->
+        <section id="tab-jogo" class="tab-content hidden space-y-8 animate-fadeIn">
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- Cabeçalho do Jogo -->
+                <div class="glass-panel p-6 rounded-2xl border border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider font-semibold text-amber-300">Simulação Interativa 5 Fases</span>
+                        <h2 class="text-2xl font-bold text-stone-100 font-editorial">Labirinto de Decisões Históricas</h2>
+                    </div>
+                    <div class="flex items-center space-x-4 w-full sm:w-auto">
+                        <div class="text-right">
+                            <span class="text-xs text-stone-400 block">Consciência Crítica</span>
+                            <span id="score-display" class="text-lg font-bold text-amber-200">100 pts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Container do Jogo -->
+                <div id="game-card" class="glass-panel p-8 rounded-3xl border border-stone-800 space-y-6 relative overflow-hidden">
+                    <div class="flex items-center justify-between text-xs text-stone-400 border-b border-stone-800 pb-3">
+                        <span id="phase-counter" class="font-semibold text-stone-300">Fase 1 de 5</span>
+                        <span id="phase-axis" class="text-amber-300 font-medium">Eixo: Banalidade do Mal</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h3 id="phase-title" class="text-2xl font-bold text-amber-100 font-editorial">O Dilema da Burocracia</h3>
+                        <p id="phase-desc" class="text-stone-300 leading-relaxed text-base">Carregando cenário...</p>
+                    </div>
+
+                    <div id="options-container" class="space-y-3 pt-2">
+                        <!-- Botões de Opção inseridos via JS -->
+                    </div>
+
+                    <div id="feedback-box" class="hidden p-5 rounded-2xl bg-stone-950/90 border border-amber-900/60 space-y-3 animate-fadeIn">
+                        <div class="flex items-center space-x-2">
+                            <h4 id="feedback-title" class="font-bold text-amber-100"></h4>
+                        </div>
+                        <p id="feedback-text" class="text-sm text-stone-300 leading-relaxed"></p>
+                        <button onclick="nextPhase()" class="mt-4 px-5 py-2.5 rounded-xl bg-amber-200 hover:bg-amber-300 text-stone-950 text-sm font-semibold transition-all shadow-md">
+                            Avançar para Próxima Fase →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 3: VÍDEO & MÚSICA -->
+        <section id="tab-midia" class="tab-content hidden space-y-10 animate-fadeIn">
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="border-b border-stone-800 pb-4">
+                    <h2 class="text-3xl font-bold text-amber-100 font-editorial">Vídeo & Música</h2>
+                    <p class="text-stone-400 text-sm mt-1">Acervo multimídia com o vídeo do TikTok e a música "Cálice".</p>
+                </div>
+
+                <!-- Bloco de Vídeo do TikTok -->
+                <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-stone-800 space-y-5">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-300 flex items-center justify-center font-bold text-xl border border-amber-500/20">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-amber-100">Vídeo do TikTok</h3>
+                            <p class="text-xs text-stone-400">Publicação oficial do projeto no TikTok</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-stone-950 p-6 rounded-2xl border border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="space-y-1 text-center sm:text-left">
+                            <p class="text-stone-200 font-medium">Assista ao nosso vídeo explicativo no TikTok</p>
+                            <p class="text-xs text-stone-400">Análise resumida criada especialmente para a apresentação.</p>
+                        </div>
+                        <a href="https://vt.tiktok.com/ZSgmtkSCa/" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl bg-amber-200 hover:bg-amber-300 text-stone-950 font-semibold transition shadow-lg flex items-center gap-2 shrink-0">
+                            <i class="fa-brands fa-tiktok text-lg"></i>
+                            <span>Abrir Vídeo no TikTok</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-80"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Bloco de Áudio: Cálice (Chico Buarque) -->
+                <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-stone-800 space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-300 flex items-center justify-center font-bold text-xl border border-amber-500/20">
+                            <i class="fa-solid fa-music"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-amber-100">Cálice - Chico Buarque & Gilberto Gil</h3>
+                            <p class="text-xs text-stone-400">Música sobre censura e autoritarismo</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-stone-950 p-6 rounded-2xl border border-stone-800 space-y-4">
+                        <div class="relative w-full rounded-xl overflow-hidden bg-black aspect-video border border-stone-800" style="max-height: 220px;">
+                            <iframe 
+                                class="w-full h-full" 
+                                src="https://www.youtube.com/embed/399I_eYx-Bw?rel=0" 
+                                title="Cálice - Chico Buarque & Gilberto Gil" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <p class="text-xs text-stone-400 text-center">
+                            <i class="fa-solid fa-circle-info mr-1"></i> Reprodução direta da música "Cálice" (1973/1978), símbolo de resistência e crítica social.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 4: QUEM SOMOS -->
+        <section id="tab-equipe" class="tab-content hidden space-y-10 animate-fadeIn">
+            <div class="max-w-4xl mx-auto space-y-8 text-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-amber-100 font-editorial">Quem Somos</h2>
+                    <p class="text-stone-400 text-sm mt-1">Estudantes e pesquisadores responsáveis pela concepção do projeto "Labirinto do Autoritarismo".</p>
+                </div>
+                
+                <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-stone-800 space-y-4">
+                    <!-- Foto da Equipe -->
+                    <div class="relative overflow-hidden rounded-2xl bg-stone-950 border border-stone-800 flex justify-center">
+                        <img 
+                        
+                            id="group-photo-display" 
+                            src="./imagem/imgrupo.jfif" 
+                            onerror="this.onerror=null; this.src='equipe.jpg';" 
+                            alt="Foto do Grupo do Projeto" 
+                            class="w-full max-w-md h-auto object-cover rounded-2xl transition hover:scale-[1.01] shadow-2xl sepia-[0.1]"
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-stone-800 py-6 text-center text-xs text-stone-500">
+        <p>© 2026 Labirinto do Autoritarismo - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Scripts da Aplicação -->
+    <script>
+        // Navegação entre Abas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            if(targetTab) targetTab.classList.remove('hidden');
+            
+            // Atualizar estado ativo da navegação
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('bg-amber-950/80', 'text-amber-200', 'border-amber-700/60');
+                btn.classList.add('text-stone-300');
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if(activeNav) {
+                activeNav.classList.add('bg-amber-950/80', 'text-amber-200', 'border-amber-700/60');
+                activeNav.classList.remove('text-stone-300');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Lógica do Jogo de Dilemas
+        const phases = [
+            {
+                axis: "Eixo 1: Banalidade do Mal",
+                title: "O Funcionário da Burocracia",
+                desc: "Você é um funcionário público do setor de transportes nos anos 1930. Recebe uma ordem para organizar horários e rotas de trens especiais sem informações detalhadas sobre os passageiros. Você desconfia das condições, mas é apenas o seu trabalho.",
+                options: [
+                    {
+                        text: "Executar o trabalho sem questionar. Afinal, você cumpre ordens técnicas e não é responsável pelas decisões políticas superiores.",
+                        points: -20,
+                        feedback: "Conceito de Banalidade do Mal (Hannah Arendt): Ao transferir a responsabilidade ética para a autoridade superior e focar apenas no cumprimento da tarefa burocrática, o indivíduo torna-se uma engrenagem ativa na engrenagem autoritária."
+                    },
+                    {
+                        text: "Questionar formalmente a finalidade dos trens e buscar se recusar a assinar as ordens de transporte extraordinárias.",
+                        points: +20,
+                        feedback: "Resistência Ética: Recusar a neutralidade burocrática rompe a ilusão de cumplicidade passiva, demonstrando a responsabilidade individual sobre as ações do Estado."
+                    }
+                ]
+            },
+            {
+                axis: "Eixo 2: Manipulação dos Afetos",
+                title: "O Discurso e a Crise Econômica",
+                desc: "Diante de uma forte crise econômica e desemprego generalizado, um movimento radical oferece discursos inflamados prometendo restauração do orgulho nacional, culpando um inimigo comum por todas as dificuldades do povo.",
+                options: [
+                    {
+                        text: "Apoiar a mensagem inflamada, pois o momento exige um líder forte para restaurar a ordem e a esperança coletiva.",
+                        points: -20,
+                        feedback: "Manipulação Afetiva: O fascismo instrumentaliza sentimentos legítimos como medo e ressentimento para canalizar o apoio popular a causas autoritárias."
+                    },
+                    {
+                        text: "Analisar criticamente as propostas e rejeitar a simplificação de problemas complexos baseada no ódio.",
+                        points: +20,
+                        feedback: "Pensamento Crítico: Identificar a apelação emotiva permite desarmar estratégias demagógicas antes que elas dominem as instituições."
+                    }
+                ]
+            },
+            {
+                axis: "Eixo 3: Construção de Inimigos",
+                title: "O Decreto de Exclusão",
+                desc: "O governo publica decretos que restringem os direitos civis e de trabalho de uma minoria minoritária da sociedade sob o pretexto de 'segurança nacional'.",
+                options: [
+                    {
+                        text: "Aceitar a medida como necessária para manter a coesão social e a estabilidade da maioria.",
+                        points: -20,
+                        feedback: "Construção do Inimigo: O autoritarismo necessita de um 'outro' para ser perseguido e culpabilizado, desumanizando grupos vulneráveis."
+                    },
+                    {
+                        text: "Manifestar-se publicamente e solidarizar-se com os afetados, denunciando a violação dos direitos humanos.",
+                        points: +20,
+                        feedback: "Defesa Direita dos Direitos: Proteger minorias da sanção estatal é a pedra angular para impedir a escalada totalitária."
+                    }
+                ]
+            },
+            {
+                axis: "Eixo 4: Eugenia & Hierarquias",
+                title: "A Ciência Instrumentalizada",
+                desc: "Revistas científicas da época passam a publicar teorias de 'higiene racial' e eugenia, recomendando a segregação biológica para manter a 'pureza do povo'.",
+                options: [
+                    {
+                        text: "Aceitar a tese como progresso científico e biológico legitimado pelas autoridades do Estado.",
+                        points: -20,
+                        feedback: "Eugenia e Pseudociência: O nazifascismo apropriou-se da linguagem científica para naturalizar desigualdades e perseguições raciais."
+                    },
+                    {
+                        text: "Contestar e denunciar os pressupostos racistas e a falta de rigor das teses eugênicas.",
+                        points: +20,
+                        feedback: "Rigor Histórico e Científico: Combater teorias discriminatórias na sua origem previne a normalização de políticas de extermínio."
+                    }
+                ]
+            },
+            {
+                axis: "Eixo 5: Idealização do Líder",
+                title: "O Culto à Personalidade",
+                desc: "Estátuas e retratos do líder supremo são espalhados por escolas e prédios públicos. Exige-se juramento de lealdade pessoal ao governante e não à Constituição.",
+                options: [
+                    {
+                        text: "Prestar o juramento de lealdade, encarando como mero ato formal exigido pelo governo.",
+                        points: -20,
+                        feedback: "Idealização do Líder: A submissão da lealdade pessoal a uma figura messiânica destrói a soberania popular e o Estado Democrático de Direito."
+                    },
+                    {
+                        text: "Recusar a sacralização da autoridade e defender que o poder emana das leis democráticas.",
+                        points: +20,
+                        feedback: "Defesa das Instituições: Democracias sustentam-se no respeito às leis e garantias constitucionais, jamais na devoção cega a indivíduos."
+                    }
+                ]
+            }
+        ];
+
+        let currentPhase = 0;
+        let totalScore = 100;
+
+        function loadPhase() {
+            if (currentPhase >= phases.length) {
+                renderGameEnd();
+                return;
+            }
+
+            const p = phases[currentPhase];
+            document.getElementById('phase-counter').innerText = `Fase ${currentPhase + 1} de ${phases.length}`;
+            document.getElementById('phase-axis').innerText = p.axis;
+            document.getElementById('phase-title').innerText = p.title;
+            document.getElementById('phase-desc').innerText = p.desc;
+
+            const optContainer = document.getElementById('options-container');
+            optContainer.innerHTML = '';
+
+            p.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl bg-stone-900/90 hover:bg-stone-800 border border-stone-800 hover:border-amber-700/50 text-stone-200 hover:text-amber-100 transition-all text-sm leading-relaxed flex items-start space-x-3 group";
+                btn.onclick = () => selectOption(opt);
+                btn.innerHTML = `
+                    <span class="w-6 h-6 rounded-lg bg-stone-800 group-hover:bg-amber-950/80 text-amber-300 font-semibold flex items-center justify-center shrink-0 border border-stone-700 group-hover:border-amber-700 text-xs">${idx + 1}</span>
+                    <span class="flex-grow">${opt.text}</span>
+                `;
+                optContainer.appendChild(btn);
+            });
+
+            document.getElementById('feedback-box').classList.add('hidden');
+            document.getElementById('options-container').classList.remove('hidden');
+        }
+
+        function selectOption(option) {
+            totalScore += option.points;
+            if (totalScore < 0) totalScore = 0;
+            document.getElementById('score-display').innerText = `${totalScore} pts`;
+
+            document.getElementById('options-container').classList.add('hidden');
+            const fbBox = document.getElementById('feedback-box');
+            fbBox.classList.remove('hidden');
+
+            const fbTitle = document.getElementById('feedback-title');
+            if (option.points > 0) {
+                fbTitle.innerText = "✓ Escolha Consciente (+20 pts)";
+                fbTitle.className = "font-bold text-amber-300";
+            } else {
+                fbTitle.innerText = "⚠️ Alerta de Conivência (-20 pts)";
+                fbTitle.className = "font-bold text-amber-500";
+            }
+
+            document.getElementById('feedback-text').innerText = option.feedback;
+        }
+
+        function nextPhase() {
+            currentPhase++;
+            loadPhase();
+        }
+
+        function renderGameEnd() {
+            const card = document.getElementById('game-card');
+            let evaluation = "";
+
+            if (totalScore >= 160) {
+                evaluation = "Excelente Consciência Crítica! Você demonstrou forte percepção frente aos mecanismos de dominação, identificando a manipulação e a cumplicidade burocrática.";
+            } else if (totalScore >= 100) {
+                evaluation = "Atenção Moderada. Em alguns momentos você percebeu as armadilhas autoritárias, mas em outros cedeu à neutralidade burocrática ou à conformidade.";
+            } else {
+                evaluation = "Alerta de Conformismo. Suas decisões refletem como cidadãos comuns muitas vezes acabam por naturalizar e colaborar passivamente com regimes autoritários.";
+            }
+
+            card.innerHTML = `
+                <div class="text-center space-y-6 py-6 animate-fadeIn">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-300 flex items-center justify-center font-bold text-3xl mx-auto border border-amber-500/30">
+                        <i class="fa-solid fa-flag"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-3xl font-bold text-amber-100 font-editorial">Simulação Concluída</h3>
+                        <p class="text-stone-400 text-sm">Pontuação Final de Consciência Crítica</p>
+                        <p class="text-4xl font-extrabold text-amber-200 py-2">${totalScore} / 200 pts</p>
+                    </div>
+                    <p class="text-stone-300 text-base leading-relaxed max-w-xl mx-auto glass-panel p-6 rounded-2xl border border-stone-800">
+                        ${evaluation}
+                    </p>
+                    <button onclick="restartGame()" class="px-6 py-3 rounded-xl bg-amber-200 hover:bg-amber-300 text-stone-950 font-semibold transition-all shadow-lg pulse-glow">
+                        <i class="fa-solid fa-rotate-right mr-2"></i> Jogar Novamente
+                    </button>
+                </div>
+            `;
+        }
+
+        function restartGame() {
+            currentPhase = 0;
+            totalScore = 100;
+            document.getElementById('score-display').innerText = "100 pts";
+
+            const card = document.getElementById('game-card');
+            card.innerHTML = `
+                <div class="flex items-center justify-between text-xs text-stone-400 border-b border-stone-800 pb-3">
+                    <span id="phase-counter" class="font-semibold text-stone-300">Fase 1 de 5</span>
+                    <span id="phase-axis" class="text-amber-300 font-medium">Eixo: Banalidade do Mal</span>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 id="phase-title" class="text-2xl font-bold text-amber-100 font-editorial">O Dilema da Burocracia</h3>
+                    <p id="phase-desc" class="text-stone-300 leading-relaxed text-base">Carregando cenário...</p>
+                </div>
+
+                <div id="options-container" class="space-y-3 pt-2"></div>
+
+                <div id="feedback-box" class="hidden p-5 rounded-2xl bg-stone-950/90 border border-amber-900/60 space-y-3 animate-fadeIn">
+                    <div class="flex items-center space-x-2">
+                        <h4 id="feedback-title" class="font-bold text-amber-100"></h4>
+                    </div>
+                    <p id="feedback-text" class="text-sm text-stone-300 leading-relaxed"></p>
+                    <button onclick="nextPhase()" class="mt-4 px-5 py-2.5 rounded-xl bg-amber-200 hover:bg-amber-300 text-stone-950 text-sm font-semibold transition-all shadow-md">
+                        Avançar para Próxima Fase →
+                    </button>
+                </div>
+            `;
+            loadPhase();
+        }
+
+        // Inicializar o jogo na carga inicial
+        window.onload = function() {
+            loadPhase();
+        };
+    </script>
+</body>
+</html>
